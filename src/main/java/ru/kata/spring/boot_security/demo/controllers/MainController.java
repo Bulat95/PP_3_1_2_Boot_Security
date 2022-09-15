@@ -1,13 +1,13 @@
-package ru.kata.spring.boot_security.demo.controller;
+package ru.kata.spring.boot_security.demo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import ru.kata.spring.boot_security.demo.model.Role;
-import ru.kata.spring.boot_security.demo.model.User;
-import ru.kata.spring.boot_security.demo.service.UserService;
+import ru.kata.spring.boot_security.demo.models.Role;
+import ru.kata.spring.boot_security.demo.models.User;
+import ru.kata.spring.boot_security.demo.services.UserService;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -37,9 +37,9 @@ public class MainController {
         return "user";
     }
 
-    @GetMapping(value = {"/", "/index"})
+    @GetMapping(value = {"/"})
     public String getIndexPage() {
-        return "index";
+        return "/login";
     }
 
 }
