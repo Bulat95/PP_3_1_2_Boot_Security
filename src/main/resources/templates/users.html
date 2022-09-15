@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Users</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        th, td {
+            border: black solid 1px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <nav>
+        <a href="/admin">Страница Администратора</a>
+        <a href="/user">Кабинет пользователя</a>
+        <a href="/logout">Выйти</a>
+    </nav>
+</header>
+<ul class="list-group">
+    <a href="/admin" class="list-group-item list-group-item-action active">Admin</a>
+    <a href="/user" class="list-group-item list-group-item-action">User</a>
+</ul>
+<h1>Управление пользователями</h1>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Логин (имя пользователя)</th>
+        <th>Пароль</th>
+        <th>Почта</th>
+        <th>Роли</th>
+        <th>Опции</th>
+    </tr>
+    <th:block th:each="user:${users}">
+        <tr>
+            <td th:text="${user.getId()}"></td>
+            <td th:text="${user.getFirstName()}"></td>
+            <td th:text="${user.getLastName()}"></td>
+            <td th:text="${user.getUsername()}"></td>
+            <td th:text="${user.getPassword()}"></td>
+            <td th:text="${user.getEmail()}"></td>
+            <td>
+                <th:block th:each="role:${user.getRoles()}">
+                    <p th:text="${role.toString()}"></p>
+                </th:block>
+            </td>
+            <td>
+                <p><a th:href="'/admin/redact?id=' + ${user.getId()}">Redact</a></p>
+                <p><a th:href="'/admin/delete?id=' + ${user.getId()}">Delete</a></p>
+            </td>
+        </tr>
+    </th:block>
+</table>
+<h1>Создание нового пользователя</h1>
+<form method="get" th:action="@{/admin/add}" th:object="${newuser}">
+    <table>
+        <tr>
+            <td>Имя</td>
+            <td><input type="text" name="name" th:field="*{firstName}"></td>
+        </tr>
+        <tr>
+            <td>Фамилия</td>
+            <td><input type="text" name="lastname" th:field="*{lastName}"></td>
+        </tr>
+        <tr>
+            <td>* Уникальный Логин (имя пользователя, будет использоваться для входа) </td>
+            <td><input type="text" name="login" th:field="*{username}"></td>
+        </tr>
+        <tr>
+            <td>* Пароль</td>
+            <td><input type="password" name="password" th:field="*{password}"></td>
+        </tr>
+        <tr>
+            <td>Возраст</td>
+            <td><input type="number" name="email" th:field="*{email}"></td>
+        </tr>
+
+        <tr>
+            <td>* Роли</td>
+            <td>
+                <label>Пользователь<input type="checkbox" name="roles" value="ROLE_USER" checked></label>
+                <label>Администратор<input type="checkbox" name="roles" value="ROLE_ADMIN"></label>
+            </td>
+        </tr>
+    </table>
+    <input type="submit">
+</form>
+</body>
+</html>
