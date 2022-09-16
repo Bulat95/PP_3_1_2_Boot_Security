@@ -10,8 +10,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories(basePackages = {"ru.kata.spring.boot_security.demo"})
 public class SpringBootSecurityDemoApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SpringBootSecurityDemoApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(SpringBootSecurityDemoApplication.class, args);
+    }
 
 }

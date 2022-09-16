@@ -1,13 +1,13 @@
-package ru.kata.spring.boot_security.demo.controllers;
+package ru.kata.spring.boot_security.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import ru.kata.spring.boot_security.demo.models.Role;
-import ru.kata.spring.boot_security.demo.models.User;
-import ru.kata.spring.boot_security.demo.services.UserService;
+import ru.kata.spring.boot_security.demo.model.Role;
+import ru.kata.spring.boot_security.demo.model.User;
+import ru.kata.spring.boot_security.demo.service.UserService;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -27,18 +27,18 @@ public class MainController {
     public String printUserPage(ModelMap model, Principal principal) {
         model.addAttribute("authUser", service.loadUserByUsername(principal.getName()));
 
-        User userDetails = (User)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        User userDetails = (User) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         List<String> roles = new ArrayList<>();
-        for(Role role : userDetails.getRoles()){
+        for (Role role : userDetails.getRoles()) {
             roles.add(role.getName());
         }
-        model.addAttribute("userroles",roles);
-        model.addAttribute("userinfo",userDetails);
+        model.addAttribute("userroles", roles);
+        model.addAttribute("userinfo", userDetails);
         return "user";
     }
 
     @GetMapping(value = {"/"})
-    public String getIndexPage() {
+    public String getLoginPage() {
         return "/login";
     }
 

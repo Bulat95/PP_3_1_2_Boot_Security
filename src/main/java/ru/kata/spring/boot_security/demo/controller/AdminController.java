@@ -1,12 +1,12 @@
-package ru.kata.spring.boot_security.demo.controllers;
+package ru.kata.spring.boot_security.demo.controller;
 
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import ru.kata.spring.boot_security.demo.models.User;
-import ru.kata.spring.boot_security.demo.services.UserService;
+import ru.kata.spring.boot_security.demo.model.User;
+import ru.kata.spring.boot_security.demo.service.UserService;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public class AdminController {
 
 
     @RequestMapping()
-    public String allUsersList(ModelMap model) {
+    public String getUsers(ModelMap model) {
         List<User> userList = userService.getAllUsers();
         model.addAttribute("users", userList);
         model.addAttribute("newuser", new User());
@@ -39,7 +39,7 @@ public class AdminController {
     public String saveUser(@ModelAttribute User user,
                            ModelMap model) {
         userService.saveUser(user);
-        return allUsersList(model);
+        return getUsers(model);
     }
 
     @PatchMapping(value = "/redact")

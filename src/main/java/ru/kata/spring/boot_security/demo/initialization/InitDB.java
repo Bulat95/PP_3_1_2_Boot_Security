@@ -3,10 +3,10 @@ package ru.kata.spring.boot_security.demo.initialization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import ru.kata.spring.boot_security.demo.models.Role;
-import ru.kata.spring.boot_security.demo.models.User;
-import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
-import ru.kata.spring.boot_security.demo.repositories.UserRepository;
+import ru.kata.spring.boot_security.demo.model.Role;
+import ru.kata.spring.boot_security.demo.model.User;
+import ru.kata.spring.boot_security.demo.repository.RoleRepository;
+import ru.kata.spring.boot_security.demo.repository.UserRepository;
 
 import javax.annotation.PostConstruct;
 import java.util.HashSet;
@@ -34,10 +34,10 @@ public class InitDB {
         roleRepository.save(role2);
 
         User user1 = new User
-                ("bulat","Булат", "Батуллин",
+                ("bulat", "Булат", "Батуллин",
                         "user", passwordEncoder.encode("user"));
         User user2 = new User
-                ("ivan","Иван", "Иванов",
+                ("ivan", "Иван", "Иванов",
                         "admin", passwordEncoder.encode("admin"));
 
         user1.setRoles(new HashSet<>(Set.of(role2)));

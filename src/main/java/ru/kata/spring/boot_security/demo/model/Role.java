@@ -1,4 +1,4 @@
-package ru.kata.spring.boot_security.demo.models;
+package ru.kata.spring.boot_security.demo.model;
 
 
 import org.springframework.security.core.GrantedAuthority;
@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "roles")
@@ -17,7 +18,7 @@ public class Role implements GrantedAuthority {
     private String name;
 
     @ManyToMany(mappedBy = "roles")
-    private Collection<User> users;
+    private Set<User> users;
 
     public Role() {
     }
