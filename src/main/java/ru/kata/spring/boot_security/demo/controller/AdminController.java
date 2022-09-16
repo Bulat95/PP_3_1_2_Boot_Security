@@ -43,13 +43,13 @@ public class AdminController {
     }
 
     @PatchMapping(value = "/redact")
-    public String redactionForm(@RequestParam(value = "id") long id, ModelMap modelMap) {
+    public String getRedactionForm(@RequestParam(value = "id") long id, ModelMap modelMap) {
         modelMap.addAttribute("user", userService.getUserById(id));
         return "update";
     }
 
     @GetMapping(value = "/do_redact")
-    public String redactionUser(@ModelAttribute User user, ModelMap modelMap) {
+    public String editUser(@ModelAttribute User user, ModelMap modelMap) {
         userService.updateUser(user, user.getId());
         return "update";
     }

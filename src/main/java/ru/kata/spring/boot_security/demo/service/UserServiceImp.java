@@ -3,6 +3,7 @@ package ru.kata.spring.boot_security.demo.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,9 +14,7 @@ import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.repository.UserRepository;
 
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -65,11 +64,12 @@ public class UserServiceImp implements UserService {
         repository.deleteById(id);
     }
 
-//    @Override
-//    @Transactional(readOnly = true)
-//    public User getUserByName(String username) {
-//        return repository.findByUsername(username);
-//    }
+    public Set<Role> getRoles(User userDetails){
+        return userDetails.getRoles();
+    }
+    public User getUserDatails(){
+        return (User) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+    }
 
     @Override
     @Transactional(readOnly = true)
@@ -81,7 +81,7 @@ public class UserServiceImp implements UserService {
         return user;
     }
 
-    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
+    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Set<Role> roles) {
         return roles.stream().map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
     }
 }

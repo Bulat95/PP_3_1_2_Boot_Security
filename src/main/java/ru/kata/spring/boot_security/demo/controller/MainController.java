@@ -24,16 +24,10 @@ public class MainController {
     }
 
     @GetMapping("/user")
-    public String printUserPage(ModelMap model, Principal principal) {
+    public String getUserPage(ModelMap model, Principal principal) {
         model.addAttribute("authUser", service.loadUserByUsername(principal.getName()));
-
-        User userDetails = (User) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        List<String> roles = new ArrayList<>();
-        for (Role role : userDetails.getRoles()) {
-            roles.add(role.getName());
-        }
-        model.addAttribute("userroles", roles);
-        model.addAttribute("userinfo", userDetails);
+        model.addAttribute("userroles", service.getRoles((User) (SecurityContextHolder.getContext().getAuthentication().getPrincipal())));
+        model.addAttribute("userinfo", service.getUserDatails());
         return "user";
     }
 
